@@ -95,7 +95,7 @@ public class SyncTest extends BaseTestCase {
         // show
         SyncShow show = new SyncShow();
         show.ids = ShowIds.slug("community");
-        show.seasons = new LinkedList<>();
+        show.seasons = new LinkedList<SyncSeason>();
         show.seasons.add(season);
 
         SyncItems items = new SyncItems().shows(show);
@@ -113,14 +113,14 @@ public class SyncTest extends BaseTestCase {
         // season
         SyncSeason season = new SyncSeason();
         season.number = TestData.EPISODE_SEASON;
-        season.episodes = new LinkedList<>();
+        season.episodes = new LinkedList<SyncEpisode>();
         season.episodes.add(episode1);
         season.episodes.add(episode2);
 
         // show
         SyncShow show = new SyncShow();
         show.ids = ShowIds.tvdb(TestData.SHOW_TVDB_ID);
-        show.seasons = new LinkedList<>();
+        show.seasons = new LinkedList<SyncSeason>();
         show.seasons.add(season);
 
         SyncItems items = new SyncItems().shows(show);
@@ -166,12 +166,12 @@ public class SyncTest extends BaseTestCase {
 
         SyncSeason season = new SyncSeason();
         season.number = TestData.EPISODE_SEASON;
-        season.episodes = new LinkedList<>();
+        season.episodes = new LinkedList<SyncEpisode>();
         season.episodes.add(episode2);
 
         SyncShow show = new SyncShow();
         show.ids = ShowIds.tvdb(TestData.SHOW_TVDB_ID);
-        show.seasons = new LinkedList<>();
+        show.seasons = new LinkedList<SyncSeason>();
         show.seasons.add(season);
 
         return new SyncItems().movies(movie).shows(show);
@@ -206,13 +206,13 @@ public class SyncTest extends BaseTestCase {
         // season
         SyncSeason season = new SyncSeason();
         season.number = TestData.EPISODE_SEASON;
-        season.episodes = new LinkedList<>();
+        season.episodes = new LinkedList<SyncEpisode>();
         season.episodes.add(episode);
         season.episodes.add(episode2);
         // show
         SyncShow show = new SyncShow();
         show.ids = ShowIds.tvdb(TestData.SHOW_TVDB_ID);
-        show.seasons = new LinkedList<>();
+        show.seasons = new LinkedList<SyncSeason>();
         show.seasons.add(season);
 
         SyncItems items = new SyncItems().movies(movie).shows(show);
@@ -314,7 +314,7 @@ public class SyncTest extends BaseTestCase {
                 .number(2)
                 .rating(Rating.GREAT);
 
-        LinkedList<SyncEpisode> episodes = new LinkedList<>();
+        LinkedList<SyncEpisode> episodes = new LinkedList<SyncEpisode>();
         episodes.add(episode1);
         episodes.add(episode2);
 
@@ -396,7 +396,7 @@ public class SyncTest extends BaseTestCase {
         // show
         SyncShow show = new SyncShow();
         show.ids = ShowIds.slug("community");
-        show.seasons = new LinkedList<>();
+        show.seasons = new LinkedList<SyncSeason>();
         show.seasons.add(season);
 
         SyncItems items = new SyncItems().shows(show);
@@ -413,13 +413,13 @@ public class SyncTest extends BaseTestCase {
         // season
         SyncSeason season = new SyncSeason();
         season.number = TestData.EPISODE_SEASON;
-        season.episodes = new LinkedList<>();
+        season.episodes = new LinkedList<SyncEpisode>();
         season.episodes.add(episode1);
         season.episodes.add(episode2);
         // show
         SyncShow show = new SyncShow();
         show.ids = ShowIds.tvdb(TestData.SHOW_TVDB_ID);
-        show.seasons = new LinkedList<>();
+        show.seasons = new LinkedList<SyncSeason>();
         show.seasons.add(season);
 
         SyncItems items = new SyncItems().shows(show);

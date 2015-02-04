@@ -27,7 +27,7 @@ public class SyncShow {
     }
 
     public SyncShow seasons(SyncSeason season) {
-        LinkedList<SyncSeason> list = new LinkedList<>();
+        LinkedList<SyncSeason> list = new LinkedList<SyncSeason>();
         list.add(season);
         return seasons(list);
     }

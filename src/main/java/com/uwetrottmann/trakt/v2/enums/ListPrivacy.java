@@ -15,7 +15,7 @@ public enum ListPrivacy implements TraktEnum {
         this.value = value;
     }
 
-    private static final Map<String, ListPrivacy> STRING_MAPPING = new HashMap<>();
+    private static final Map<String, ListPrivacy> STRING_MAPPING = new HashMap<String, ListPrivacy>();
 
     static {
         for (ListPrivacy via : ListPrivacy.values()) {

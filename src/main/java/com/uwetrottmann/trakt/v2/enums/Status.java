@@ -16,7 +16,7 @@ public enum Status implements TraktEnum {
         this.value = value;
     }
 
-    private static final Map<String, Status> STRING_MAPPING = new HashMap<>();
+    private static final Map<String, Status> STRING_MAPPING = new HashMap<String, Status>();
 
     static {
         for (Status via : Status.values()) {

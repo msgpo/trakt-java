@@ -9,7 +9,7 @@ public class SyncItems {
     public List<SyncShow> shows;
 
     public SyncItems movies(SyncMovie movie) {
-        LinkedList<SyncMovie> list = new LinkedList<>();
+        LinkedList<SyncMovie> list = new LinkedList<SyncMovie>();
         list.add(movie);
         return movies(list);
     }
@@ -20,7 +20,7 @@ public class SyncItems {
     }
 
     public SyncItems shows(SyncShow show) {
-        LinkedList<SyncShow> list = new LinkedList<>();
+        LinkedList<SyncShow> list = new LinkedList<SyncShow>();
         list.add(show);
         return shows(list);
     }
