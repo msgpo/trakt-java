@@ -13,7 +13,7 @@ import com.uwetrottmann.trakt.v2.entities.Translation;
 import com.uwetrottmann.trakt.v2.entities.TrendingShow;
 import com.uwetrottmann.trakt.v2.enums.Extended;
 import com.uwetrottmann.trakt.v2.enums.Type;
-import com.uwetrottmann.trakt.v2.exceptions.OAuthUnauthorizedException;
+import com.uwetrottmann.trakt.v2.exceptions.UnauthorizedException;
 import org.junit.Test;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class ShowsTest extends BaseTestCase {
 
     @Test
     public void test_popular() {
-        List<Show> shows = getTrakt().shows().popular(2, null, Extended.FULLIMAGES);
+        List<Show> shows = getTrakt().shows().popular(2, null, Extended.DEFAULT_MIN);
         assertThat(shows.size()).isLessThanOrEqualTo(DEFAULT_PAGE_SIZE);
         for (Show show : shows) {
             assertShowNotNull(show);
@@ -33,7 +33,7 @@ public class ShowsTest extends BaseTestCase {
 
     @Test
     public void test_trending() {
-        List<TrendingShow> shows = getTrakt().shows().trending(1, null, Extended.FULLIMAGES);
+        List<TrendingShow> shows = getTrakt().shows().trending(1, null, Extended.DEFAULT_MIN);
         assertThat(shows.size()).isLessThanOrEqualTo(DEFAULT_PAGE_SIZE);
         for (TrendingShow show : shows) {
             assertThat(show.watchers).isNotNull();
@@ -91,7 +91,7 @@ public class ShowsTest extends BaseTestCase {
 
     @Test
     public void test_comments() {
-        List<Comment> comments = getTrakt().shows().comments(TestData.SHOW_SLUG, 1, null, Extended.IMAGES);
+        List<Comment> comments = getTrakt().shows().comments(TestData.SHOW_SLUG, 1, null, Extended.DEFAULT_MIN);
         assertThat(comments.size()).isLessThanOrEqualTo(DEFAULT_PAGE_SIZE);
     }
 
@@ -109,7 +109,7 @@ public class ShowsTest extends BaseTestCase {
     }
 
     @Test
-    public void test_watched_progress() throws OAuthUnauthorizedException {
+    public void test_watched_progress() throws UnauthorizedException {
         BaseShow show = getTrakt().shows().watchedProgress(TestData.SHOW_SLUG, Extended.DEFAULT_MIN);
         assertWatchedProgress(show);
     }

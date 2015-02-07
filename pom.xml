@@ -13,11 +13,11 @@
   <groupId>com.uwetrottmann</groupId>
   <artifactId>trakt-java</artifactId>
   <packaging>jar</packaging>
-  <version>4.1.0</version>
+  <version>4.2.1</version>
 
   <name>trakt-java</name>
-  <description>A Java wrapper around the trakt v2 API using retrofit.</description>
-  <url>https://github.com/UweTrottmann/trakt-java/</url>
+  <description>A Java wrapper around the trakt v2 API using retrofit. Modified for tinyMediaManager</description>
+  <url>https://github.com/tinyMediaManager/trakt-java/</url>
   <inceptionYear>2013</inceptionYear>
 
   <licenses>
@@ -36,53 +36,38 @@
   </properties>
 
   <scm>
-    <url>https://github.com/UweTrottmann/trakt-java</url>
-    <connection>scm:git:git://github.com/UweTrottmann/trakt-java.git</connection>
-    <developerConnection>scm:git:git@github.com:UweTrottmann/trakt-java.git</developerConnection>
+    <url>https://github.com/tinyMediaManager/trakt-java</url>
+    <connection>scm:git:git://github.com/tinyMediaManager/trakt-java.git</connection>
+    <developerConnection>scm:git:git@github.com:tinyMediaManager/trakt-java.git</developerConnection>
   </scm>
 
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/UweTrottmann/trakt-java/issues</url>
+    <url>https://github.com/tinyMediaManager/trakt-java/issues</url>
   </issueManagement>
 
   <dependencies>
     <dependency>
       <groupId>com.squareup.retrofit</groupId>
       <artifactId>retrofit</artifactId>
-      <version>1.8.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.okhttp</groupId>
-      <artifactId>okhttp</artifactId>
-      <version>1.6.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.okhttp</groupId>
-      <artifactId>okhttp-urlconnection</artifactId>
-      <version>1.6.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.oltu.oauth2</groupId>
-      <artifactId>org.apache.oltu.oauth2.client</artifactId>
-      <version>1.0.0</version>
+      <version>1.9.0</version>
     </dependency>
     <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
-      <version>2.4</version>
+      <version>2.7</version>
     </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>1.6.1</version>
+      <version>1.7.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -121,7 +106,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.16</version>
         <configuration>
+          <!-- To skip tests by default -->
           <skipTests>true</skipTests>
         </configuration>
       </plugin>

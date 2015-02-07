@@ -8,8 +8,7 @@ import com.uwetrottmann.trakt.v2.entities.Show;
 import com.uwetrottmann.trakt.v2.entities.Translation;
 import com.uwetrottmann.trakt.v2.entities.TrendingShow;
 import com.uwetrottmann.trakt.v2.enums.Extended;
-import com.uwetrottmann.trakt.v2.exceptions.OAuthUnauthorizedException;
-import retrofit.http.EncodedQuery;
+import com.uwetrottmann.trakt.v2.exceptions.UnauthorizedException;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -28,7 +27,7 @@ public interface Shows {
     List<Show> popular(
             @Query("page") Integer page,
             @Query("limit") Integer limit,
-            @EncodedQuery("extended") Extended extended
+            @Query(value = "extended", encodeValue = false) Extended extended
     );
 
     /**
@@ -41,7 +40,7 @@ public interface Shows {
     List<TrendingShow> trending(
             @Query("page") Integer page,
             @Query("limit") Integer limit,
-            @EncodedQuery("extended") Extended extended
+            @Query(value = "extended", encodeValue = false) Extended extended
     );
 
     /**
@@ -52,7 +51,7 @@ public interface Shows {
     @GET("/shows/{id}")
     Show summary(
             @Path("id") String showId,
-            @EncodedQuery("extended") Extended extended
+            @Query(value = "extended", encodeValue = false) Extended extended
     );
 
     /**
@@ -89,7 +88,7 @@ public interface Shows {
             @Path("id") String showId,
             @Query("page") Integer page,
             @Query("limit") Integer limit,
-            @EncodedQuery("extended") Extended extended
+            @Query(value = "extended", encodeValue = false) Extended extended
     );
 
     /**
@@ -103,8 +102,8 @@ public interface Shows {
     @GET("/shows/{id}/progress/watched")
     BaseShow watchedProgress(
             @Path("id") String showId,
-            @Query(value="extended", encodeValue = false) Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * Returns all actors, directors, writers, and producers for a show.

@@ -1,14 +1,14 @@
 package com.uwetrottmann.trakt.v2.services;
 
-import com.uwetrottmann.trakt.v2.exceptions.OAuthUnauthorizedException;
 import com.uwetrottmann.trakt.v2.entities.Movie;
 import com.uwetrottmann.trakt.v2.entities.Show;
 import com.uwetrottmann.trakt.v2.enums.Extended;
+import com.uwetrottmann.trakt.v2.exceptions.UnauthorizedException;
 import retrofit.client.Response;
 import retrofit.http.DELETE;
-import retrofit.http.EncodedQuery;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ public interface Recommendations {
      */
     @GET("/recommendations/movies")
     List<Movie> movies(
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -34,7 +34,7 @@ public interface Recommendations {
     @DELETE("recommendations/movies/{id}")
     Response dismissMovie(
             @Path("id") String movieId
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -43,8 +43,8 @@ public interface Recommendations {
      */
     @GET("/recommendations/shows")
     List<Show> shows(
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -56,6 +56,6 @@ public interface Recommendations {
     @DELETE("recommendations/shows/{id}")
     Response dismissShow(
             @Path("id") String showId
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
 }

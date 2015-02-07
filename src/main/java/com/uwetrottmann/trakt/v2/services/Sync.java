@@ -12,12 +12,12 @@ import com.uwetrottmann.trakt.v2.entities.SyncResponse;
 import com.uwetrottmann.trakt.v2.entities.WatchlistedEpisode;
 import com.uwetrottmann.trakt.v2.enums.Extended;
 import com.uwetrottmann.trakt.v2.enums.RatingsFilter;
-import com.uwetrottmann.trakt.v2.exceptions.OAuthUnauthorizedException;
+import com.uwetrottmann.trakt.v2.exceptions.UnauthorizedException;
 import retrofit.http.Body;
-import retrofit.http.EncodedPath;
-import retrofit.http.EncodedQuery;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Path;
+import retrofit.http.Query;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public interface Sync {
      * pull down a ton of data only to see nothing has actually changed.
      */
     @GET("/sync/last_activities")
-    LastActivities lastActivities() throws OAuthUnauthorizedException;
+    LastActivities lastActivities() throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -41,8 +41,8 @@ public interface Sync {
      */
     @GET("/sync/collection/movies")
     List<BaseMovie> collectionMovies(
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -52,8 +52,8 @@ public interface Sync {
      */
     @GET("/sync/collection/shows")
     List<BaseShow> collectionShows(
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -65,7 +65,7 @@ public interface Sync {
     @POST("/sync/collection")
     SyncResponse addItemsToCollection(
             @Body SyncItems items
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -77,7 +77,7 @@ public interface Sync {
     @POST("/sync/collection/remove")
     SyncResponse deleteItemsFromCollection(
             @Body SyncItems items
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -86,8 +86,8 @@ public interface Sync {
      */
     @GET("/sync/watched/movies")
     List<BaseMovie> watchedMovies(
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -96,8 +96,8 @@ public interface Sync {
      */
     @GET("/sync/watched/shows")
     List<BaseShow> watchedShows(
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -111,7 +111,7 @@ public interface Sync {
     @POST("/sync/history")
     SyncResponse addItemsToWatchedHistory(
             @Body SyncItems items
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -125,7 +125,7 @@ public interface Sync {
     @POST("/sync/history/remove")
     SyncResponse deleteItemsFromWatchedHistory(
             @Body SyncItems items
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -136,9 +136,9 @@ public interface Sync {
      */
     @GET("/sync/ratings/movies{rating}")
     List<RatedMovie> ratingsMovies(
-            @EncodedPath("rating") RatingsFilter filter,
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Path(value = "rating", encode = false) RatingsFilter filter,
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -149,9 +149,9 @@ public interface Sync {
      */
     @GET("/sync/ratings/shows{rating}")
     List<RatedShow> ratingsShows(
-            @EncodedPath("rating") RatingsFilter filter,
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Path(value = "rating", encode = false) RatingsFilter filter,
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -162,9 +162,9 @@ public interface Sync {
      */
     @GET("/sync/ratings/seasons{rating}")
     List<RatedSeason> ratingsSeasons(
-            @EncodedPath("rating") RatingsFilter filter,
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Path(value = "rating", encode = false) RatingsFilter filter,
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -175,9 +175,9 @@ public interface Sync {
      */
     @GET("/sync/ratings/episodes{rating}")
     List<RatedEpisode> ratingsEpisodes(
-            @EncodedPath("rating") RatingsFilter filter,
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Path(value = "rating", encode = false) RatingsFilter filter,
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -189,7 +189,7 @@ public interface Sync {
     @POST("/sync/ratings")
     SyncResponse addRatings(
             @Body SyncItems items
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -201,7 +201,7 @@ public interface Sync {
     @POST("/sync/ratings/remove")
     SyncResponse deleteRatings(
             @Body SyncItems items
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
 
     /**
@@ -212,8 +212,8 @@ public interface Sync {
      */
     @GET("/sync/watchlist/movies")
     List<BaseMovie> watchlistMovies(
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -223,8 +223,8 @@ public interface Sync {
      */
     @GET("/sync/watchlist/shows")
     List<BaseShow> watchlistShows(
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -234,8 +234,8 @@ public interface Sync {
      */
     @GET("/sync/watchlist/episodes")
     List<WatchlistedEpisode> watchlistEpisodes(
-            @EncodedQuery("extended") Extended extended
-    ) throws OAuthUnauthorizedException;
+            @Query(value = "extended", encodeValue = false) Extended extended
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -247,7 +247,7 @@ public interface Sync {
     @POST("/sync/watchlist")
     SyncResponse addItemsToWatchlist(
             @Body SyncItems items
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -259,6 +259,6 @@ public interface Sync {
     @POST("/sync/watchlist/remove")
     SyncResponse deleteItemsFromWatchlist(
             @Body SyncItems items
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
 }

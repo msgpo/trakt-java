@@ -2,6 +2,8 @@ package com.uwetrottmann.trakt.v2.services;
 
 import com.uwetrottmann.trakt.v2.BaseTestCase;
 import com.uwetrottmann.trakt.v2.TestData;
+import com.uwetrottmann.trakt.v2.entities.Follower;
+import com.uwetrottmann.trakt.v2.entities.Friend;
 import com.uwetrottmann.trakt.v2.entities.HistoryEntry;
 import com.uwetrottmann.trakt.v2.entities.BaseMovie;
 import com.uwetrottmann.trakt.v2.entities.BaseShow;
@@ -22,7 +24,7 @@ import com.uwetrottmann.trakt.v2.enums.Extended;
 import com.uwetrottmann.trakt.v2.enums.ListPrivacy;
 import com.uwetrottmann.trakt.v2.enums.Rating;
 import com.uwetrottmann.trakt.v2.enums.RatingsFilter;
-import com.uwetrottmann.trakt.v2.exceptions.OAuthUnauthorizedException;
+import com.uwetrottmann.trakt.v2.exceptions.UnauthorizedException;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import retrofit.client.Response;
@@ -36,7 +38,7 @@ public class UsersTest extends BaseTestCase {
     private static final int TEST_LIST_WITH_ITEMS_TRAKT_ID = 619;
 
     @Test
-    public void test_getSettings() throws OAuthUnauthorizedException {
+    public void test_getSettings() throws UnauthorizedException {
         Settings settings = getTrakt().users().settings();
         assertThat(settings.user).isNotNull();
         assertThat(settings.account).isNotNull();
@@ -45,7 +47,7 @@ public class UsersTest extends BaseTestCase {
     }
 
     @Test
-    public void test_profile() throws OAuthUnauthorizedException {
+    public void test_profile() throws UnauthorizedException {
         User user = getTrakt().users().profile(TestData.USERNAME, Extended.FULLIMAGES);
         assertThat(user.username).isEqualTo(TestData.USERNAME);
         assertThat(user.isPrivate).isEqualTo(false);
@@ -54,19 +56,19 @@ public class UsersTest extends BaseTestCase {
     }
 
     @Test
-    public void test_collectionMovies() throws OAuthUnauthorizedException {
+    public void test_collectionMovies() throws UnauthorizedException {
         List<BaseMovie> movies = getTrakt().users().collectionMovies(TestData.USERNAME, Extended.DEFAULT_MIN);
         assertSyncMovies(movies, "collection");
     }
 
     @Test
-    public void test_collectionShows() throws OAuthUnauthorizedException {
+    public void test_collectionShows() throws UnauthorizedException {
         List<BaseShow> shows = getTrakt().users().collectionShows(TestData.USERNAME, Extended.DEFAULT_MIN);
         assertSyncShows(shows, "collection");
     }
 
     @Test
-    public void test_lists() throws OAuthUnauthorizedException {
+    public void test_lists() throws UnauthorizedException {
         List<com.uwetrottmann.trakt.v2.entities.List> lists = getTrakt().users().lists("me");
         for (com.uwetrottmann.trakt.v2.entities.List list : lists) {
             // ensure id and a title
@@ -77,7 +79,7 @@ public class UsersTest extends BaseTestCase {
     }
 
     @Test
-    public void test_createList() throws OAuthUnauthorizedException {
+    public void test_createList() throws UnauthorizedException {
         com.uwetrottmann.trakt.v2.entities.List list = new com.uwetrottmann.trakt.v2.entities.List();
         list.name("trakt-java");
         list.description("trakt-java test list");
@@ -98,7 +100,7 @@ public class UsersTest extends BaseTestCase {
 
 
     @Test
-    public void test_updateList() throws OAuthUnauthorizedException {
+    public void test_updateList() throws UnauthorizedException {
         // change name (append a new suffix that changes frequently)
         int secondOfDay = new DateTime().getSecondOfDay();
         com.uwetrottmann.trakt.v2.entities.List list = new com.uwetrottmann.trakt.v2.entities.List();
@@ -112,7 +114,7 @@ public class UsersTest extends BaseTestCase {
     }
 
     @Test
-    public void test_listItems() throws OAuthUnauthorizedException {
+    public void test_listItems() throws UnauthorizedException {
         List<ListEntry> entries = getTrakt().users().listItems("me", String.valueOf(TEST_LIST_WITH_ITEMS_TRAKT_ID),
                 Extended.DEFAULT_MIN);
         for (ListEntry entry : entries) {
@@ -121,7 +123,7 @@ public class UsersTest extends BaseTestCase {
     }
 
     @Test
-    public void test_addListItems() throws OAuthUnauthorizedException {
+    public void test_addListItems() throws UnauthorizedException {
         SyncShow show = new SyncShow().id(ShowIds.tvdb(256227));
         SyncMovie movie = new SyncMovie().id(MovieIds.tmdb(TestData.MOVIE_TMDB_ID));
 
@@ -142,7 +144,34 @@ public class UsersTest extends BaseTestCase {
     }
 
     @Test
-    public void test_historyEpisodes() throws OAuthUnauthorizedException {
+         public void test_followers() throws UnauthorizedException {
+        List<Follower> followers = getTrakt().users().followers(TestData.USERNAME, Extended.DEFAULT_MIN);
+        for (Follower follower : followers) {
+            assertThat(follower.followed_at).isNotNull();
+            assertThat(follower.user).isNotNull();
+        }
+    }
+
+    @Test
+    public void test_following() throws UnauthorizedException {
+        List<Follower> following = getTrakt().users().following(TestData.USERNAME, Extended.DEFAULT_MIN);
+        for (Follower follower : following) {
+            assertThat(follower.followed_at).isNotNull();
+            assertThat(follower.user).isNotNull();
+        }
+    }
+
+    @Test
+    public void test_friends() throws UnauthorizedException {
+        List<Friend> friends = getTrakt().users().friends(TestData.USERNAME, Extended.DEFAULT_MIN);
+        for (Friend friend : friends) {
+            assertThat(friend.friends_at).isNotNull();
+            assertThat(friend.user).isNotNull();
+        }
+    }
+
+    @Test
+    public void test_historyEpisodes() throws UnauthorizedException {
         List<HistoryEntry> history = getTrakt().users().historyEpisodes(TestData.USERNAME, 1, DEFAULT_PAGE_SIZE,
                 Extended.DEFAULT_MIN);
         for (HistoryEntry entry : history) {
@@ -154,7 +183,7 @@ public class UsersTest extends BaseTestCase {
     }
 
     @Test
-    public void test_historyMovies() throws OAuthUnauthorizedException {
+    public void test_historyMovies() throws UnauthorizedException {
         List<HistoryEntry> history = getTrakt().users().historyMovies(TestData.USERNAME, 1, DEFAULT_PAGE_SIZE,
                 Extended.DEFAULT_MIN);
         for (HistoryEntry entry : history) {
@@ -165,14 +194,14 @@ public class UsersTest extends BaseTestCase {
     }
 
     @Test
-    public void test_ratingsMovies() throws OAuthUnauthorizedException {
+    public void test_ratingsMovies() throws UnauthorizedException {
         List<RatedMovie> ratedMovies = getTrakt().users().ratingsMovies(TestData.USERNAME, RatingsFilter.ALL,
                 Extended.DEFAULT_MIN);
         assertRatedEntities(ratedMovies);
     }
 
     @Test
-    public void test_ratingsMovies_filtered() throws OAuthUnauthorizedException {
+    public void test_ratingsMovies_filtered() throws UnauthorizedException {
         List<RatedMovie> ratedMovies = getTrakt().users().ratingsMovies(TestData.USERNAME, RatingsFilter.TOTALLYNINJA,
                 Extended.DEFAULT_MIN);
         for (RatedMovie movie : ratedMovies) {
@@ -182,21 +211,21 @@ public class UsersTest extends BaseTestCase {
     }
 
     @Test
-    public void test_ratingsShows() throws OAuthUnauthorizedException {
+    public void test_ratingsShows() throws UnauthorizedException {
         List<RatedShow> ratedShows = getTrakt().users().ratingsShows(TestData.USERNAME, RatingsFilter.ALL,
                 Extended.DEFAULT_MIN);
         assertRatedEntities(ratedShows);
     }
 
     @Test
-    public void test_ratingsSeasons() throws OAuthUnauthorizedException {
+    public void test_ratingsSeasons() throws UnauthorizedException {
         List<RatedSeason> ratedSeasons = getTrakt().users().ratingsSeasons(TestData.USERNAME, RatingsFilter.ALL,
                 Extended.DEFAULT_MIN);
         assertRatedEntities(ratedSeasons);
     }
 
     @Test
-    public void test_ratingsEpisodes() throws OAuthUnauthorizedException {
+    public void test_ratingsEpisodes() throws UnauthorizedException {
         List<RatedEpisode> ratedEpisodes = getTrakt().users().ratingsEpisodes(TestData.USERNAME, RatingsFilter.ALL,
                 Extended.DEFAULT_MIN);
         assertRatedEntities(ratedEpisodes);
@@ -204,13 +233,13 @@ public class UsersTest extends BaseTestCase {
 
 
     @Test
-    public void test_watchedMovies() throws OAuthUnauthorizedException {
+    public void test_watchedMovies() throws UnauthorizedException {
         List<BaseMovie> watchedMovies = getTrakt().users().watchedMovies(TestData.USERNAME, Extended.DEFAULT_MIN);
         assertSyncMovies(watchedMovies, "watched");
     }
 
     @Test
-    public void test_watchedShows() throws OAuthUnauthorizedException {
+    public void test_watchedShows() throws UnauthorizedException {
         List<BaseShow> watchedShows = getTrakt().users().watchedShows(TestData.USERNAME, Extended.DEFAULT_MIN);
         assertSyncShows(watchedShows, "watched");
     }

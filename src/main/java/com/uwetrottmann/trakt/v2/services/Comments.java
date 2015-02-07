@@ -1,7 +1,7 @@
 package com.uwetrottmann.trakt.v2.services;
 
-import com.uwetrottmann.trakt.v2.exceptions.OAuthUnauthorizedException;
 import com.uwetrottmann.trakt.v2.entities.Comment;
+import com.uwetrottmann.trakt.v2.exceptions.UnauthorizedException;
 import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.DELETE;
@@ -26,7 +26,7 @@ public interface Comments {
     @POST("/comments")
     Comment post(
             @Body Comment comment
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -39,7 +39,7 @@ public interface Comments {
     @GET("/comments/{id}")
     Comment get(
             @Path("id") int id
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -54,7 +54,7 @@ public interface Comments {
     Comment update(
             @Path("id") int id,
             @Body Comment comment
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -67,7 +67,7 @@ public interface Comments {
     @DELETE("/comments/{id}")
     Response delete(
             @Path("id") int id
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -80,7 +80,7 @@ public interface Comments {
     @GET("/comments/{id}/replies")
     List<Comment> replies(
             @Path("id") int id
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
     /**
      * <b>OAuth Required</b>
@@ -95,6 +95,6 @@ public interface Comments {
     Comment postReply(
             @Path("id") int id,
             @Body Comment comment
-    ) throws OAuthUnauthorizedException;
+    ) throws UnauthorizedException;
 
 }

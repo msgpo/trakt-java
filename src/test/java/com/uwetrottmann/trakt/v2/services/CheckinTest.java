@@ -12,7 +12,7 @@ import com.uwetrottmann.trakt.v2.entities.ShareSettings;
 import com.uwetrottmann.trakt.v2.entities.SyncEpisode;
 import com.uwetrottmann.trakt.v2.entities.SyncMovie;
 import com.uwetrottmann.trakt.v2.exceptions.CheckinInProgressException;
-import com.uwetrottmann.trakt.v2.exceptions.OAuthUnauthorizedException;
+import com.uwetrottmann.trakt.v2.exceptions.UnauthorizedException;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import retrofit.client.Response;
@@ -28,7 +28,7 @@ public class CheckinTest extends BaseTestCase {
     private static final String APP_DATE = "2014-10-15";
 
     @Test
-    public void test_checkin_episode() throws OAuthUnauthorizedException {
+    public void test_checkin_episode() throws UnauthorizedException {
         EpisodeCheckin checkin = buildEpisodeCheckin();
 
         EpisodeCheckinResponse response = null;
@@ -59,7 +59,7 @@ public class CheckinTest extends BaseTestCase {
     }
 
     @Test
-    public void test_checkin_movie() throws OAuthUnauthorizedException {
+    public void test_checkin_movie() throws UnauthorizedException {
         MovieCheckin checkin = buildMovieCheckin();
 
         MovieCheckinResponse response = null;
@@ -87,7 +87,7 @@ public class CheckinTest extends BaseTestCase {
     }
 
     @Test
-    public void test_checkin_blocked() throws OAuthUnauthorizedException {
+    public void test_checkin_blocked() throws UnauthorizedException {
         Checkin checkin = getTrakt().checkin();
 
         EpisodeCheckin episodeCheckin = buildEpisodeCheckin();
@@ -112,7 +112,7 @@ public class CheckinTest extends BaseTestCase {
 
 
     @Test
-    public void test_checkin_delete() throws OAuthUnauthorizedException {
+    public void test_checkin_delete() throws UnauthorizedException {
         // tries to delete a check in even if none active
         Response response1 = getTrakt().checkin().deleteActiveCheckin();
         assertThat(response1.getStatus()).isEqualTo(204);
