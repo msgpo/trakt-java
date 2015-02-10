@@ -78,6 +78,15 @@ public class TraktV2 {
   }
 
   /**
+   * is the access token set? do we have a valid login?
+   * 
+   * @return true/false
+   */
+  public boolean isTokenSet() {
+      return this.accessToken != null && this.accessToken.length() > 0;
+  }
+
+  /**
    * Set the user credentials for login
    * 
    * @param username
