@@ -5,11 +5,13 @@ import org.joda.time.DateTime;
 import retrofit.RetrofitError;
 
 /**
- * Thrown if trakt returns HTTP status code 409 Conflict, meaning that another check-in is already in progress. You can
- * either cancel the existing check-in, or wait until the given time and try again.
+ * Thrown if trakt returns HTTP status code 409 Conflict, meaning that another check-in is already
+ * in progress. You can either cancel the existing check-in, or wait until the given time and try
+ * again.
  */
 public class CheckinInProgressException extends Exception {
 
+    private static final long serialVersionUID = 1L;
     private final DateTime expiresAt;
 
     public CheckinInProgressException(RetrofitError cause) {

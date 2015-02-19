@@ -20,12 +20,12 @@ import retrofit.http.POST;
 
 import com.uwetrottmann.trakt.v2.entities.Login;
 import com.uwetrottmann.trakt.v2.entities.UserToken;
-import com.uwetrottmann.trakt.v2.exceptions.LoginException;
+import com.uwetrottmann.trakt.v2.exceptions.UnauthorizedException;
 
 public interface Auth {
   /**
    * Request a user token via login.
    */
   @POST("/auth/login")
-  UserToken getUserToken(@Body Login login) throws LoginException;
+  UserToken getUserToken(@Body Login login) throws UnauthorizedException;
 }

@@ -8,6 +8,8 @@ import retrofit.RetrofitError;
  */
 public class UnauthorizedException extends Exception {
 
+    private static final long serialVersionUID = 1L;
+
     public UnauthorizedException(RetrofitError cause) {
         super("A valid access token must be provided", cause);
     }
