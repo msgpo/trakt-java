@@ -10,7 +10,7 @@
     <version>7</version>
   </parent>
 
-  <groupId>com.uwetrottmann</groupId>
+  <groupId>org.tinymediamanager</groupId>
   <artifactId>trakt-java</artifactId>
   <packaging>jar</packaging>
   <version>4.2.1</version>
